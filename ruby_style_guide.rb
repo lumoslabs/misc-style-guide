@@ -1,5 +1,3 @@
-# GENERAL APP STYLE
-#===================
 # 1. Use 2 space for indentations
 
 # 2. No spaces after (, [ and before ], ).
@@ -9,6 +7,8 @@
 # bad:
    set_layout_option( :analytics_page_prefix, 'bw' )
    a = [ 1,2, 3]
+   a = [1, 2,3]
+   a = [1,2 ,3]
 
 # 3. blocks/closures
   # a) when arg provided, put a space after the iterator, not after the "{", and not before the "}"
@@ -158,110 +158,14 @@
   # bad:
   if(thing)
 
+# 13. use single quotes when you don't need to do string interpolation
+  # good
+  s = 'hey wombat number 55'
+  s = "hey #{@wombat.name}"
+
+  # bad
+  s = "hey wombat number 55"
+
 # XXX. maximum characters per line
 #   good:
     # need to decide
-
-# TESTING STYLE
-#==============
-# 1. test setups
-  # good:
-    context 'user does have an ab test assignment for ab test' do
-      setup do
-        @abta = AbTestAssignment.create!(:user => @user, :ab_test_option => @abto_control)
-      end
-
-  # bad:
-    context 'user does have an ab test assignment for ab test' do
-      setup { @abta = AbTestAssignment.create!(:user => @user, :ab_test_option => @abto_control) }
-
-    context 'user does have an ab test assignment for ab test' do
-      setup {@abta = AbTestAssignment.create!(:user => @user, :ab_test_option => @abto_control)}
-
-    context 'user does have an ab test assignment for ab test' do
-      setup{ @abta = AbTestAssignment.create!(:user => @user, :ab_test_option => @abto_control) }
-
-# 2. have empty line between contexts
-  # good:
-    context '#wombat' do
-      ...
-    end
-
-    context '#snake' do
-      ...
-    end
-
-  # bad:
-    context '#wombat' do
-      ...
-    end
-    context '#snake' do
-      ...
-    end
-
-# 3. context without setup - no following empty line
-  # good:
-    context '#wombat' do
-      should 'something' do
-        assert true
-      end
-    end
-
-  # bad:
-    context '#wombat' do
-
-      should 'something' do
-        assert true
-      end
-    end
-
-# 4. don't use parens, do use multi-line blocks for should argument:
-  # good:
-    should "have a completed training session" do
-      assert @session.program_completed?
-    end
-
-  # bad:
-    should("have a completed training session") do
-      assert @session.program_completed?
-    end
-
-    should("have a completed training session"){assert @session.program_completed?}
-
-
-# 5. spacing for setup and multiple shoulds in test:
-  # good:
-    context 'after completion of one session' do
-      setup do
-        @session.complete!
-      end
-
-      should "have a completed training session" do
-        assert @session.program_completed?
-      end
-
-      should 'have one less incomplete_training_program than training_programs' do
-        assert_equal @cp.training_programs.size - 1, @cp.incomplete_training_programs.size
-      end
-
-      context 'and some other thing' do
-      end
-    end
-
-    context 'after other thing to do' do
-    end
-
-# 6. take advantage of shoulda - contexts and shoulda blocks should read like english
-  # good:
-    context 'a visitor' do
-      context 'going to the home page' do
-        should 'see the mini brain profile' do
-
-    context '#show'
-      context 'for a visitor' do
-        context 'going to the home page' do
-          should 'see the mini brain profile' do
-  # bad:
-    context 'visitor' do
-      context 'home page' do
-        should 'see the mini brain profile' do
