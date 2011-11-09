@@ -38,6 +38,20 @@
     myFunction(arg)
     var myObj = {}
 
+// Indent block content by two spaces
+  // good:
+    $(function() {
+      if (true) {
+        myFunction();
+      }
+    })
+  // bad:
+    $(function() {
+    if (false) {
+        myFunction();
+    }
+    })
+
 // No spaces after ( and before ) in function calls.
   // good:
      myFunction(arg);

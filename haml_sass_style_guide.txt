@@ -8,6 +8,14 @@ Use dashes (-) for classes and ids
     .divClass
     #divId
 
+
+Use HAML's evaluated Ruby comments (unless the comment is required in the compiled HTML)
+  good:
+    - # my comment
+  bad:
+    / my comment
+
+
 Place colon (:) before CSS attribute
   good:
     #div-id
@@ -16,3 +24,52 @@ Place colon (:) before CSS attribute
     #div-id
       display: block
 
+
+Do not inline style
+  good:
+    <html>
+      <head>
+        <link href='/path/to/stylesheet'></link>
+        ...
+  bad:
+    <html>
+      <head>
+        <style>
+          styles...
+        </style>
+        ...
+
+
+Only inline JS in the #javascripts div (and only inline page specific JS or JS that requires dynamic generation via Rails)
+  good:
+    <div id="javascripts">
+      <script src='/path/to/javascript'></script>
+      <script>
+        doSomethingTemplateSpecific();
+      </script>
+  bad:
+    <body>
+      <script>
+        doSomethingTemplateSpecific();
+        doSomethingGlobal();
+      </script>
+
+
+Do not inline javascript event handlers. Use jQuery and CSS selectors instead (unobtrusively).
+  good:
+    <a href='javascript:void(0)' id='clicker'>click me</a>
+    <!-- put click handling in external JS file, e.g.
+      $('a#clicker').click(function() {
+        ...
+      });
+    -->
+  bad:
+    <a href='javascript:clicker()' id='clicker'>click me</a>
+    <a href='javascript:void(0);' onclick='clicker()'>click me</a>
+
+
+Use 'javascript:void(0)' as the href instead of '#'
+  good:
+    <a href='javascript:void(0)'>click me</a>
+  bad:
+    <a href='#'>click me</a>
