@@ -1,0 +1,18 @@
+Use dashes (-) for classes and ids
+  good:
+    .div-class
+    #div-id
+  bad:
+    .div_class
+    #div_id
+    .divClass
+    #divId
+
+Place colon (:) before CSS attribute
+  good:
+    #div-id
+      :display block
+  bad
+    #div-id
+      display: block
+
