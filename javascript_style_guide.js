@@ -169,3 +169,10 @@
 // Avoid switch statements
 
 // Avoid the for(... in ...) loop
+
+// Use $ prefix for variables that are jQuery objects
+  // good:
+    var $self = $(this);
+  // bad:
+    var $self = this;
+    var $today = new Date();

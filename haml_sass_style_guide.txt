@@ -14,6 +14,7 @@ Use HAML's evaluated Ruby comments (unless the comment is required in the compil
     - # my comment
   bad:
     / my comment
+    = # comment
 
 
 Place colon (:) before CSS attribute
@@ -38,6 +39,7 @@ Do not inline style
           styles...
         </style>
         ...
+    <a href='javascript:void(0);' style='display:none'></a>
 
 
 Only inline JS in the #javascripts div (and only inline page specific JS or JS that requires dynamic generation via Rails)
