@@ -23,7 +23,7 @@
   // bad:
     var myVar = true, yourVar = false;
 
-// Do use chained variable declarations
+// Do not use chained variable declarations
   // good:
     var myVar = true,
         yourVar = true;
