@@ -11,12 +11,12 @@
    a = [1,2 ,3]
 
 # 3. blocks/closures
-  # a) when arg provided, put a space after the iterator, not after the "{", and not before the "}"
+  # a) when arg provided, put a space after the iterator, after the opening "{", and after the closing "}"
   # good:
-      Product.family_plan.each {|p| puts p.name}
-  # bad:
-      Product.family_plan.each{|p| puts p.name}
       Product.family_plan.each { |p| puts p.name }
+  # bad:
+      Product.family_plan.each{ |p| puts p.name }
+      Product.family_plan.each {|p| puts p.name}
       Product.family_plan.each {|p| puts p.name }
 
   # b) when no arg provided, blocks get a space before and after opening "{" and a space before closing "}"
@@ -29,22 +29,19 @@
     h["Create Date"] = Proc.new{ user.created_at.to_date ? format_datetime_for_targeting(user.created_at.to_date) : nil }
     h["Create Date"] = Proc.new {user.created_at.to_date ? format_datetime_for_targeting(user.created_at.to_date) : nil}
 
-# 4. use parentheses when there are arguments
-  # def some_method(a, b, c); end
+# 4. Omit parentheses around parameters for methods that are part of an internal DSL (e.g. Rake, Rails, RSpec), methods that
+#   are with "keyword" status in Ruby (e.g. attr_reader, puts) and attribute access methods. Use parentheses around the arguments
+#   of all other method invocations.
+#   Happily borrowing this phrasing from: https://github.com/bbatsov/ruby-style-guide#syntax
 
   # good:
     some_method('wombat', nil, :some_sym)
+    has_many :users
   # bad:
     some_method 'wombat', nil, :some_sym
-
-  # exceptions: when only one arg and its a String or Symbol
-  # good:
     some_method :thing
     some_method 'string'
-    assert_response :success
-  # bad:
-    some_method User.first
-    some_method var
+    has_many(:users)
 
 # 5. Use do..end for multi-line blocks, not {..}
   # good:
@@ -151,12 +148,14 @@
   # bad:
   wombat=55
 
-# 12. put a space before parens in if clause
+# 12. Don't use parentheses for a conditional, unless the conditional contains an assignment.
   # good:
-  if (thing)
+  if thing
+  if (thing = some_method)
 
   # bad:
-  if(thing)
+  if (thing)
+  if thing = some_method
 
 # 13. use single quotes when you don't need to do string interpolation
   # good
@@ -165,6 +164,13 @@
 
   # bad
   s = "hey wombat number 55"
+
+# 14. Don't use brackets in arguments when they are not necessary.
+  # good
+  h.merge!(:thing => :good)
+
+  # bad
+  h.merg!({:thing => :bad})
 
 # XXX. maximum characters per line
 #   good:
