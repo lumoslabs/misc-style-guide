@@ -36,7 +36,7 @@
     var myObj = {};
   // bad:
     myFunction(arg)
-    var myObj = {}
+    var myObj = {};
 
 // Indent block content by two spaces
   // good:
@@ -44,7 +44,7 @@
       if (true) {
         myFunction();
       }
-    })
+    });
   // bad:
     $(function() {
     if (false) {
@@ -75,7 +75,7 @@
     }
     var myFunction = function() {
       return true;
-    }
+    };
   // bad:
     if (false){
       return false;
@@ -86,20 +86,20 @@
     }
     var myFunction = function(){
       return true;
-    }
+    };
     var myFunction = function()
     {
       return true;
-    }
+    };
 
 // No spaces after [ and before ];
   // good:
-    a = [1,2,3]
+    a = [1,2,3];
     obj[key]
   // bad:
-    a = [ 1,2, 3]
-    a = [1, 2,3]
-    a = [1,2 ,3]
+    a = [ 1,2, 3];
+    a = [1, 2,3];
+    a = [1,2 ,3];
     obj[ key ]
 
 // Use {}'s for all if statements
@@ -140,31 +140,31 @@
 
 // Define single line objects with no spaces after { and before }
   // good:
-    var obj = {key: 'value'}
+    var obj = {key: 'value'};
   // bad:
-    var obj = { key: 'value' }
+    var obj = { key: 'value' };
 
 // Define multi-line objects with new lines after { and before }
   // good:
     var obj = {
       key: 'value',
       otherKey: 'otherValue'
-    }
+    };
   // bad:
     var obj = {key: 'value',
-      otherKey: 'otherValue'}
+      otherKey: 'otherValue'};
 
 // Define objects on same line as return keyword
   // good:
     return {
       key: 'value'
-    }
-    return {key: 'value'}
+    };
+    return {key: 'value'};
   // bad:
     return
     {
       key: 'value'
-    }
+    };
 
 // Avoid switch statements
 
