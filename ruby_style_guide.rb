@@ -284,14 +284,18 @@
   # file class_name.rb
   class ClassName
     include SomeMethods
-
-    def other_method; end
   end
   # end file
 
   # file some_methods.rb
   module SomeMethods
     def some_method; end #implies trivial methods with no complexities justifying breaking out for testing purposes
+  end
+  # end file
+
+  # file other_methods.rb
+  class ClassName
+    def other_method; end #this is bad since it should just go in class_name.rb
   end
   # end file
 
