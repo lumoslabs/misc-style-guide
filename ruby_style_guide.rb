@@ -50,7 +50,7 @@
       pp p.id
     end
   # bad:
-    Product.each do {|p|
+    Product.each { |p|
       pp p.name
       pp p.id
     }
@@ -171,6 +171,137 @@
 
   # bad
   h.merg!({:thing => :bad})
+
+# 15. You may but do not have to use class << self; def method in lieu of def self.method for groups of >= 5 class methods
+  # good
+  class ClassName
+    def self.first_method; end
+
+    def self.second_method; end
+  end
+
+  class ClassName
+    class << self
+      def first_method; end
+      def second_method; end
+      def third_method; end
+      def fourth_method; end
+      def fifth_method; end
+    end
+  end
+
+  # bad
+  class ClassName
+    class << self
+      def first_method; end
+
+      def second_method; end
+    end
+  end
+
+# 16. Always omit explicit object references when implicit ones suffice, excepting inheritance needs
+  # good
+  class ClassName
+    attr_accessor :attrib
+
+    def self.some_method
+      other_method
+      new.instance_method
+    end
+
+    def self.other_method
+      some_method
+    end
+
+    def instance_method
+      self.attrib = 5 # implicit does not suffice here
+      self.class.other_method # class.other_method raises a syntax error
+    end
+  end
+
+  # bad
+  class ClassName
+    attr_accessor :attrib
+
+    def ClassName.some_method
+      ClassName.other_method
+      self.new.instance_method
+    end
+
+    def ClassName.other_method
+      self.some_method # better than ClassName.some_method but still unecessary
+    end
+
+    def instance_method
+      ClassName.other_method
+    end
+  end
+
+# 17. Do not split classes/modules across multiple files, split them across multiple modules/classes in their own files.
+# Do not split into multiple modules for the sole purpose of splitting into multiple files, it should be to aid testing or to share code.
+  # good
+  # file class_name.rb
+  class ClassName
+    def some_method; end
+    def other_method; end
+  end
+  # end file
+
+  # file other_class.rb
+  class OtherClass
+    include ComplexLogic
+
+    def initialize # it's implied that this makes testing additional behavior difficult
+      annoying_behavior && more_annoying_stuff
+    end
+
+    def annoying_behavior; end
+    def more_annoying_stuff; end
+  end
+  # end file
+
+  # file complex_logic.rb
+  module ComplexLogic
+    def complex_method; end
+  end
+  # end file
+
+  # file complex_logic_spec.rb
+  class TestClass
+    include ComplexLogic
+  end
+
+  describe TestClass
+    let(:instance){ TestClass.new }
+
+    it "should do complex stuff" do
+      instance.complex_method.should == "complex stuff"
+    end
+  end
+  # end file
+
+  # bad
+  # file class_name.rb
+  class ClassName
+    include SomeMethods
+
+    def other_method; end
+  end
+  # end file
+
+  # file some_methods.rb
+  module SomeMethods
+    def some_method; end #implies trivial methods with no complexities justifying breaking out for testing purposes
+  end
+  # end file
+
+  # file class_name_spec.rb
+  describe ClassName do
+    describe "#some_method" do
+      it "does stuff" {} # if you're not even going to break out the spec then you shouldn't be breaking out into a module
+    end
+  end
+  # end file
 
 # XXX. maximum characters per line
 #   good:
