@@ -17,13 +17,13 @@ Use HAML's evaluated Ruby comments (unless the comment is required in the compil
     = # comment
 
 
-Place colon (:) before CSS attribute
+Place colon (:) after CSS attribute
   good:
     #div-id
-      :display block
+      display: block
   bad
     #div-id
-      display: block
+      :display block
 
 
 Do not inline style
