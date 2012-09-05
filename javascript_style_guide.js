@@ -170,8 +170,9 @@
 
 // Avoid the for(... in ...) loop
 
-// Don't use $ prefix for variables that are jQuery objects
+// Use $ prefix for variables that are jQuery objects
   // good:
-    var self = $(this);
-  // bad:
     var $self = $(this);
+  // bad:
+    var $self = this;
+    var $today = new Date();
